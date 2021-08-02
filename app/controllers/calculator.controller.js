@@ -6,7 +6,17 @@ const RateMvEcom = db.rateMvEcom;
 const RatePerluasanMvEcom = db.ratePerluasanMvEcom;
 const WebConfig = db.webConfig;
 const {validationResult } = require('express-validator');
+const myValidationResult = validationResult.withDefaults({
+    formatter: error => {
+      return {
+        value: error.value,
+        message: error.msg,
+        param: error.param,
+        location: error.location,
 
+      };
+    },
+  });
 const Op = db.Sequelize.Op;
 
 let jwt = require("jsonwebtoken");
@@ -173,7 +183,7 @@ const perluasan_pa_penumpang = ()=>{
 module.exports = {
     vehicle: async (req, res,next) => {
         try {
-            const error = validationResult(req);
+            const error = myValidationResult(req);
             if (!error.isEmpty()) {
                 return res.status(422).send({ error: error.array() });
             }
@@ -274,7 +284,7 @@ module.exports = {
     },
     vehicleEcom: async (req, res,next) => {
         try {
-            const error = validationResult(req);
+            const error = myValidationResult(req);
             if (!error.isEmpty()) {
                 return res.status(422).send({ error: error.array() });
             }
@@ -475,7 +485,7 @@ module.exports = {
     },
     propertyEcom: async (req, res,next) => {
         try {
-            const error = validationResult(req);
+            const error = myValidationResult(req);
             if (!error.isEmpty()) {
                 return res.status(422).send({ error: error.array() });
             }

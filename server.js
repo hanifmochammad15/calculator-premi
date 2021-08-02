@@ -26,6 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 
 //const initials = require('./app/initials');
 
+
+
 db.sequelize.sync({force: false}).then(() => {
   console.log('Drop and Resync Db');
   // initials.initialRole();
