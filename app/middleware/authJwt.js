@@ -5,6 +5,7 @@ const User = db.user;
 
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
+  console.log(  'token', token);
 
   if (!token) {
     return res.status(403).send({
@@ -13,11 +14,14 @@ verifyToken = (req, res, next) => {
   }
 
   jwt.verify(token, config.secret, (err, decoded) => {
+    console.log(  'decoded', decoded);
+
     if (err) {
       return res.status(401).send({
         message: "Unauthorized!"
       });
     }
+    console.log(  'decoded.id', decoded.id);
     req.userId = decoded.id;
     next();
   });
