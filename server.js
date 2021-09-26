@@ -11,10 +11,10 @@ const db = require("./app/models");
 const PORT = process.env.PORT || 8182;
 
 var corsOptions = {
-  origin: `http://localhost:${PORT}`
-};
+  origin: `http://localhost:3000`
+};//memberikan izin CORS untuk http://localhost:3000
 
-//app.use(cors(corsOptions)); //diremark karena bikin error cors
+app.use(cors(corsOptions)); //sudah fixed
 
 // parse requests of content-type - application/json
 //app.use(bodyParser.json());
@@ -39,12 +39,12 @@ db.sequelize.sync({force: false}).then(() => {
 
 });//true
 // In development, you may need to drop existing tables and re-sync database. So you can use force: true as code above.
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');//menginzinkan semua browser dr url lain untuk mengakses url kita
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');//menginzinkan semua browser dr url lain untuk menggunakan method di list
-  res.setHeader('Access-Control-Allow-Headers', 'x-access-token, Origin, X-Requested-With, Content-Type, Accept, Authorization');//menginzinkan header dr url lain untuk menggunakan header di list
-  next();
-})
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');//menginzinkan semua browser dr url lain untuk mengakses url kita
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');//menginzinkan semua browser dr url lain untuk menggunakan method di list
+//   res.setHeader('Access-Control-Allow-Headers', 'x-access-token, Origin, X-Requested-With, Content-Type, Accept, Authorization');//menginzinkan header dr url lain untuk menggunakan header di list
+//   next();
+// })
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Bintang Rest API ." });
